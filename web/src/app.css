@@ -1,0 +1,184 @@
+/* ======== Base / Paleta ======== */
+* { box-sizing: border-box; }
+:root{
+  --bg:#0f1221; --bg2:#121634; --card:#171b3b;
+  --border:#28306a; --text:#e9ecff; --muted:#aab1d6;
+  --blue:#2563eb; --celeste:#5ad1ff; --red:#ff6b6b;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+html,body{height:100%;}
+body{margin:0; color:var(--text); background:#0f1221!important;}
+
+.shell{max-width:1200px; margin:24px auto; padding:0 16px;}
+.topbar{display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:14px;}
+.topbar h1{margin:0; font-size:32px; letter-spacing:.2px;}
+.badges{display:flex; gap:8px; flex-wrap:wrap;}
+.badge{font-size:12px; padding:6px 10px; border-radius:999px; background:#222859; color:#cfd5ff; border:1px solid var(--border);}
+.badge.success{background:#1e2a67; color:#aee6b7; border-color:#2a6a54;}
+
+.card{
+  background:linear-gradient(180deg,var(--card),#14183a 35%,#111534);
+  border:1px solid var(--border); border-radius:18px; padding:18px;
+  box-shadow:var(--shadow); margin-bottom:16px;
+}
+
+/* ======== Formulario superior ======== */
+.row.addrow{
+  display:grid; grid-template-columns: 1fr 140px 120px 120px; gap:12px; align-items:center;
+}
+.input,.select{
+  border-radius:12px; border:1px solid var(--border);
+  background:#0f1331; color:var(--text); padding:10px 12px; outline:none;
+}
+.input:focus,.select:focus{border-color:#3b47b4; box-shadow:0 0 0 3px rgba(108,124,255,.15);}
+.btn{border:1px solid var(--border); background:#0f1331; color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer; transition:.15s;}
+.btn:hover{filter:brightness(1.05); transform:translateY(-1px);}
+.btn.primary{background:linear-gradient(180deg,var(--blue),#1d4ed8); border-color:#1e40af; color:#fff;}
+.btn.edit{background:transparent; border:1px solid #2a356e; color:#cfd5ff;}
+.btn.outline-danger{background:transparent; border:2px solid var(--red); color:var(--red);}
+.btn.outline-danger:hover{background:rgba(255,107,107,.08);}
+
+/* ======== Columnas de la semana ======== */
+.columns{
+  display:grid; gap:14px;
+  grid-template-columns: repeat(7, minmax(280px,1fr));
+  overflow-x:auto; padding-bottom:8px;
+  scroll-snap-type: x mandatory;
+}
+.columns .col{min-width:220px; scroll-snap-align:start;
+  background:#0f1331; border:1px solid var(--border); border-radius:14px; padding:12px; min-height:170px;
+}
+.col-title{margin:4px 0 10px; color:var(--celeste); font-weight:600;}
+
+/* Scrollbar discreto */
+.columns::-webkit-scrollbar{height:8px;}
+.columns::-webkit-scrollbar-thumb{background:#222a5b; border-radius:8px;}
+
+/* Tarjeta de tarea (como tu boceto) */
+.list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;}
+.todo-card{
+  background:#0f1331; border:1px solid var(--border); border-radius:14px;
+  padding:14px; display:flex; flex-direction:column; gap:12px;
+}
+.todo-main{display:flex;}
+.todo-check{display:flex; align-items:flex-start; gap:10px; width:100%;}
+.todo-check input{width:18px; height:18px; margin-top:2px; accent-color:var(--blue);}
+.todo-title{line-height:1.35; word-break:break-word; white-space:normal; flex:1;}
+.todo-actions{display:flex; gap:10px; margin-top:2px;}
+.done .todo-title{text-decoration:line-through; opacity:.75;}
+
+/* Hora como píldora */
+.todo-time{
+  display:inline-block; background:#0b2447; border:1px solid var(--border);
+  color:#9fd3ff; font-size:12px; padding:2px 6px; border-radius:8px; margin-right:8px;
+}
+
+/* ======== Dashboard (gráficas) ======== */
+.dashboard{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.chart{padding:16px;}
+.chart-title{margin:0 0 8px; color:#cfd5ff; font-weight:600;}
+.chart-box{background:#0f1331; border:1px solid var(--border); border-radius:12px; min-height:260px; padding:8px;}
+.pct{margin-top:8px; color:#aab1d6; font-size:13px;}
+
+/* ======== Responsivo ======== */
+@media (max-width:1200px){
+  .row.addrow{grid-template-columns: 1fr 120px 110px 110px;}
+}
+@media (max-width:900px){
+  .row.addrow{grid-template-columns: 1fr; }
+  .dashboard{grid-template-columns:1fr;}
+}
+@media (max-width:600px){
+  .columns{grid-template-columns: repeat(7, minmax(260px, 1fr));} /* fuerza scroll horizontal cómodo */
+}
+
+/* === Tarjeta con hora arriba a la derecha === */
+.todo-card{ position:relative; }
+.todo-time-badge{
+  position:absolute; top:10px; right:12px;
+  background:#0b2447; border:1px solid var(--border);
+  color:#9fd3ff; font-size:12px; padding:2px 8px; border-radius:8px;
+}
+/* Reservar espacio para que el título no se meta debajo de la hora */
+.todo-title{ padding-right: 76px; }
+/* Grid del formulario: título | inicio | fin | día | botón */
+.row.addrow{ display:grid; grid-template-columns: 1fr 110px 110px 120px 110px; gap:12px; align-items:center; }
+
+/* --- Overrides de tarjeta según el boceto --- */
+
+/* columnas más cómodas (por si el sed no aplicó) */
+.columns{ grid-template-columns: repeat(7, minmax(280px, 1fr)); }
+.columns .col{ min-width: 280px; }
+
+/* checkbox centrado y título en líneas normales (sin “letras en columna”) */
+.todo-check{ align-items: center; }
+.todo-title{
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+  font-size: 16px;
+  padding-right: 90px; /* espacio para la etiqueta de hora */
+}
+
+/* botones abajo, separados (Editar izq / Eliminar der) */
+.todo-actions{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.btn{ min-width: 110px; text-align: center; }
+
+/* hora en esquina superior derecha */
+.todo-time-badge{
+  position: absolute; top: 10px; right: 12px;
+  background: #0b2447; border: 1px solid var(--border);
+  color: #9fd3ff; font-size: 12px; padding: 3px 10px; border-radius: 8px;
+}
+
+/* --- Overrides de tarjeta según el boceto --- */
+
+/* columnas más cómodas (por si el sed no aplicó) */
+.columns{ grid-template-columns: repeat(7, minmax(280px, 1fr)); }
+.columns .col{ min-width: 280px; }
+
+/* checkbox centrado y título en líneas normales (sin “letras en columna”) */
+.todo-check{ align-items: center; }
+.todo-title{
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+  font-size: 16px;
+  padding-right: 90px; /* espacio para la etiqueta de hora */
+}
+
+/* botones abajo, separados (Editar izq / Eliminar der) */
+.todo-actions{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.btn{ min-width: 110px; text-align: center; }
+
+/* hora en esquina superior derecha */
+.todo-time-badge{
+  position: absolute; top: 10px; right: 12px;
+  background: #0b2447; border: 1px solid var(--border);
+  color: #9fd3ff; font-size: 12px; padding: 3px 10px; border-radius: 8px;
+}
+
+/* === Alinear checkbox con la primera línea del título === */
+.todo-check{ 
+  align-items: flex-start !important;   /* alinear por arriba, no centrado */
+  gap: 10px;
+}
+.todo-check input{
+  width: 18px; height: 18px;
+  margin-top: 0 !important;            /* sin empuje hacia abajo */
+}
+.todo-title{
+  white-space: normal;
+  line-height: 1.35;
+  padding-top: 2px;                     /* pequeño ajuste para que quede a la misma altura */
+}

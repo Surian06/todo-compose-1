@@ -1,0 +1,24 @@
+# Node/Vite
+web/node_modules/
+web/.vite/
+
+# Python
+__pycache__/
+*.pyc
+
+# Entornos
+.env
+
+# Docker
+*.log
+
+# VS Code
+.vscode/
+
+# env y datos locales
+.env
+*.dump
+# node_modules (si existiera localmente)
+web/node_modules/
+# artefactos build locales (no Docker)
+web/dist/
